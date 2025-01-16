@@ -85,7 +85,7 @@ app.put('/books/:id', async (req, res) => {
         if (!req.body.title || !req.body.author || !req.body.publishYear) {
             return res.status(400).send({ message: 'Send all the required fields: title, author, publishYear' })
         }
-        
+
         const { id } = req.params; //then we can select the id from request
         const result = await Book.findByIdAndUpdate(id, req.body)
 
@@ -101,6 +101,24 @@ app.put('/books/:id', async (req, res) => {
     catch (error) {
         console.log(error.message);
         res.status(500).send({ message: error.message })
+    }
+})
+
+//Route for delete a data from db
+app.delete('/books/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const result = await Book.findByIdAndDelete(id)
+
+        if (!result) {
+            return res.status(404).json({ message: 'Book not Found' })
+        }
+
+        return res.status(200).send({ message: 'Book deleted successfully' })
+    }
+    catch (error) {
+        console.log(error.message)
+        return res.status(500).send({ message: error.message })
     }
 })
 
