@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json()) //middleware to parse request body
 
 app.get('/', (req, res) => {
-    console.log(req)
+    // console.log(req)
     return res.status(234).send('Welcome to bookstore mern tutorial')
 })
 
@@ -21,7 +21,7 @@ mongoose.connect(mongoDBURL).then(() => {
 //Route for save a new book
 app.post('/books', async (req, res) => {
     try {
-        //.validation  checking the data
+        //validation  checking the data
         if (!req.body.title || !req.body.author || !req.body.publishYear) {
             return res.status(400).send({ message: 'Send all the required fields: title, author, publishYear' })
         }
@@ -59,6 +59,47 @@ app.get('/books', async (req, res) => {
     }
     catch (error) {
         console.log(error);
+        res.status(500).send({ message: error.message })
+    }
+})
+
+//create a new route for get One book from Database
+app.get('/books/:id', async (req, res) => {
+    try {
+
+        const { id } = req.params;
+        const book = await Book.findById(id)  //get the book from database based on id
+        return res.status(200).json(book); //send to clients
+
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).send({ message: error.message })
+    }
+})
+
+//Route for update a book
+app.put('/books/:id', async (req, res) => {
+    try {
+        //check if these necessary fields are present in req.body
+        if (!req.body.title || !req.body.author || !req.body.publishYear) {
+            return res.status(400).send({ message: 'Send all the required fields: title, author, publishYear' })
+        }
+        
+        const { id } = req.params; //then we can select the id from request
+        const result = await Book.findByIdAndUpdate(id, req.body)
+
+        //checking is there any book
+        if (!result) {
+            return res.status(404).json({ message: 'Book not found' })
+        }
+
+        //if we get the book
+        return res.status(200).send({ message: "book updated successfully" })
+
+    }
+    catch (error) {
+        console.log(error.message);
         res.status(500).send({ message: error.message })
     }
 })
