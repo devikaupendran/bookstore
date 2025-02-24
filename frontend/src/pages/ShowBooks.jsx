@@ -25,48 +25,52 @@ const ShowBooks = () => {
     return (
         <div className='p-4'>
             <BackButton />
-            <h1 className='text-3xl my-4'>Show Book</h1>
-            {
-                loading ?
-                    (
-                        <Spinner />
-                    )
-                    :
-                    (
-                        <div className='flex flex-col border-2 border-sky-400 rounded-xl w-fit p-4'>
+            <h1 className='text-5xl font-semibold my-10 text-center'>About Book</h1>
 
-                            <div className='my-4'>
-                                <span className='text-4xl mr-4 text-gray-500'>Id</span>
-                                <span>{book._id}</span>
-                            </div>
+            <div className='flex flex-col justify-center items-center'>
 
-                            <div className='my-4'>
-                                <span className='text-4xl mr-4 text-gray-500'>Title</span>
-                                <span>{book.title}</span>
-                            </div>
+                {
+                    loading ?
+                        (
+                            <Spinner />
+                        )
+                        :
+                        (
+                            <div className='flex flex-col  border-2 border-sky-400 rounded-xl w-fit p-10'>
 
-                            <div className='my-4'>
-                                <span className='text-4xl mr-4 text-gray-500'>Author</span>
-                                <span>{book.author}</span>
-                            </div>
+                                <div className='my-4'>
+                                    <span className='text-2xl mr-4 text-gray-300'>Id : </span>
+                                    <span className='text-2xl'>{book._id}</span>
+                                </div>
 
-                            <div className='my-4'>
-                                <span className='text-4xl mr-4 text-gray-500'>Publish Year</span>
-                                <span>{book.publishYear}</span>
-                            </div>
+                                <div className='my-4'>
+                                    <span className='text-2xl mr-4 text-gray-300'>Title : </span>
+                                    <span className='text-2xl'>{book.title}</span>
+                                </div>
 
-                            <div className='my-4'>
-                                <span className='text-4xl mr-4 text-gray-500'>Publish Year</span>
-                                <span>{new Date(book.createdAt).toString()}</span>
-                            </div>
+                                <div className='my-4'>
+                                    <span className='text-2xl mr-4 text-gray-300'>Author : </span>
+                                    <span className='text-2xl'>{book.author}</span>
+                                </div>
 
-                            <div className='my-4'>
-                                <span className='text-4xl mr-4 text-gray-500'>Publish Year</span>
-                                <span>{new Date(book.updatedAt).toString()}</span>
+                                <div className='my-4'>
+                                    <span className='text-2xl mr-4 text-gray-300'>Published Year : </span>
+                                    <span className='text-2xl'>{book.publishYear}</span>
+                                </div>
+
+                                <div className='my-4'>
+                                    <span className='text-2xl mr-4 text-gray-300'>Created Time : </span>
+                                    <span className='text-2xl'>{new Date(book.createdAt).toString()}</span>
+                                </div>
+
+                                <div className='my-4'>
+                                    <span className='text-2xl mr-4 text-gray-300'>Updated Time : </span>
+                                    <span className='text-2xl'>{new Date(book.updatedAt).toString()}</span>
+                                </div>
                             </div>
-                        </div>
-                    )
-            }
+                        )
+                }
+            </div>
         </div>
     )
 }
